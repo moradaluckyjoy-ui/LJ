@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>READTRACK – Salita Muna, Kuwento Naman</title>
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Ccircle cx='32' cy='32' r='30' fill='%2317624a' stroke='%23ff8a2b' stroke-width='3' stroke-dasharray='6 4'/%3E%3Cpath d='M32 5l5 10H27z' fill='%23ff8a2b'/%3E%3Cpath d='M11 26c7-3 14-2 21 2 7-4 14-5 21-2v23c-7-3-14-2-21 2-7-4-14-5-21-2z' fill='%23fff4d6'/%3E%3Cpath d='M32 28v23' stroke='%2317624a' stroke-width='2'/%3E%3C/svg%3E">
+<meta name="theme-color" content="#17624a">
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@600;800&family=Andika:wght@400;700&display=swap" rel="stylesheet">
+<style>
+:root{--sand:#fff4d6;--jungle:#17624a;--sun:#ff8a2b;--sky:#2aa9e0;--berry:#d6336c;--ink:#2b2a33;--card:#fff}
+@media(prefers-color-scheme:dark){:root{--sand:#16261f;--card:#22362d;--ink:#f4efe0;--jungle:#7fe0b4}}
+*{box-sizing:border-box}
+body{margin:0;background:var(--sand);color:var(--ink);font:18px/1.5 Andika,Verdana,sans-serif}
+h1,h2,h3,button,nav{font-family:'Baloo 2',Andika,sans-serif}
+header{background:var(--jungle);color:#fff;padding:14px 18px;display:flex;align-items:center;gap:12px;border-bottom:6px dashed var(--sun)}
+header h1{margin:0;font-size:1.7rem;line-height:1}header small{display:block;opacity:.85;font-family:Andika}
+nav{display:flex;gap:6px;overflow-x:auto;padding:10px;background:var(--card);position:sticky;top:0;z-index:5;box-shadow:0 2px 0 #0002}
+nav button{flex:none;border:3px solid var(--jungle);background:var(--card);color:var(--ink);border-radius:30px;padding:8px 16px;font-size:1.05rem;cursor:pointer}
+nav button.on{background:var(--sun);border-color:var(--sun);color:#fff}
+main{max-width:1100px;margin:0 auto;padding:16px}
+.bar{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:12px}
+select,input{font:inherit;padding:10px;border:3px solid var(--sky);border-radius:14px;background:var(--card);color:var(--ink);min-height:48px}
+button.big,button.btn{font-size:1.2rem;min-height:56px;padding:10px 22px;border:0;border-radius:18px;background:var(--berry);color:#fff;cursor:pointer;margin:8px 6px 8px 0}
+button.alt{background:var(--sky)}button.sm{min-height:40px;font-size:1rem;padding:4px 12px}
+.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:12px}
+.card,.w{background:var(--card);border-radius:20px;padding:14px;border:3px solid #0001}
+.card b{font:800 2.4rem 'Baloo 2'}.card.n1{border-color:var(--sun)}.card.n2{border-color:var(--sky)}.card.n3{border-color:var(--berry)}.card.n4{border-color:var(--jungle)}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:10px}
+.w{text-align:center;cursor:pointer;position:relative}.w b{font-size:1.5rem;display:block}.w i{color:var(--sky);font-style:normal}
+.w.bad{background:#ffd9d9;border-color:#e5484d;color:#2b2a33}
+.w button{display:block;margin:6px auto 0;border:0;background:var(--sun);border-radius:50%;width:44px;height:44px;font-size:1.3rem;cursor:pointer}
+table{width:100%;border-collapse:collapse;background:var(--card);border-radius:14px;overflow:hidden}
+th,td{padding:8px;text-align:left;border-bottom:1px solid #0002}th{background:var(--jungle);color:#fff}
+.scroll{overflow-x:auto}
+.story{background:var(--card);padding:20px;border-radius:20px;border-left:10px solid var(--sun);line-height:1.9}
+mark{background:#ffe08a;color:#2b2a33;border-radius:6px;padding:0 3px}
+.q{background:var(--card);border-radius:16px;padding:12px;margin:10px 0}.q label{display:block;padding:8px;cursor:pointer;border-radius:10px}.q label:hover{background:#2aa9e022}
+.pill{display:inline-block;padding:2px 12px;border-radius:20px;color:#fff;font-weight:700}
+.meter{height:14px;background:#0002;border-radius:9px;overflow:hidden;min-width:80px}.meter span{display:block;height:100%;background:var(--sun)}
+textarea{width:100%;font:inherit;padding:10px;border:3px solid var(--sky);border-radius:14px;background:var(--card);color:var(--ink)}
+.av{border-radius:50%;object-fit:cover;display:inline-flex;align-items:center;justify-content:center;background:var(--sun);vertical-align:middle;flex:none;border:3px solid var(--sun)}
+.chip{display:inline-flex;align-items:center;gap:8px;background:var(--card);border-radius:30px;padding:2px 16px 2px 4px;border:3px solid var(--sun)}
+#toast{position:fixed;bottom:18px;left:50%;transform:translateX(-50%);background:var(--ink);color:var(--sand);padding:12px 22px;border-radius:30px;display:none;z-index:9}
+.tip{background:#2aa9e022;padding:10px 14px;border-radius:14px}
+@media print{header,nav,.bar,button,.noprint{display:none!important}body{background:#fff;color:#000}}
+</style></head><body>
+<header><svg viewBox="0 0 64 64" width="64" height="64" role="img" aria-label="READTRACK logo" style="flex:none;background:#fff4d6;border-radius:50%"><circle cx="32" cy="32" r="30" fill="#17624a" stroke="#ff8a2b" stroke-width="3" stroke-dasharray="6 4"/><path d="M32 5l5 10H27z" fill="#ff8a2b"/><path d="M11 26c7-3 14-2 21 2 7-4 14-5 21-2v23c-7-3-14-2-21 2-7-4-14-5-21-2z" fill="#fff4d6"/><path d="M32 28v23" stroke="#17624a" stroke-width="2"/><path d="M18 34h9M18 40h9M37 34h9M37 40h9" stroke="#2aa9e0" stroke-width="2.4" stroke-linecap="round"/></svg><div><h1>READTRACK</h1><small>Salita Muna, Kuwento Naman · Grade 3 Reading Adventure</small></div></header>
+<nav id="nav"></nav><main id="main"></main><div id="toast"></div>
+<script src="content.js"></script>
+<script>
+const API="https://script.google.com/macros/s/AKfycbyJyyPBFc0469GuU2r8MVFcxHEmiFatVQrgyHboMCG3hdn0Ad9v662H8g_qRpqz09Vp/exec"; // Apps Script Web App URL. Empty = demo mode on this device.
+const T=['learners','wordrec','difficult','story','assess','home','content'];
+const WORDS={
+en:{S:['map|MAP','path|PATH','rope|ROHP','water|WAW-ter','big|BIG','river|RIV-er','jumped|JUMPT','monkey|MUNG-kee','banana|buh-NAN-uh','top|TOP','cave|KAYV','books|BOOKS','home|HOHM','friends|FRENDZ','laughed|LAFT'],
+A:['attic|AT-ik','jungle|JUNG-gul','hidden|HID-un','treasure|TREZH-er','lantern|LAN-tern','compass|KUM-pus','branches|BRAN-chiz','bridge|BRIJ','mountain|MOWN-tun','waterfall|WAW-ter-fawl','golden|GOHL-dun','sparkled|SPAR-kuld','carefully|KAIR-fuh-lee','returned|ree-TURND','shared|SHAIRD'],
+D:['knowledge|NOL-ij','suddenly|SUD-un-lee','children|CHIL-dren','greatest|GRAYT-ist','offered|AW-ferd','across|uh-KRAWS','behind|bee-HYND','inside|in-SYD','grabbed|GRABD','blocked|BLOKT','guide|GYD','wise|WYZ','stories|STOR-eez','packed|PAKT','showed|SHOHD']},
+tl:{S:['mapa|MA-pa','daan|DA-an','lubid|LU-bid','tubig|TU-big','ilog|I-log','unggoy|ung-GOY','saging|SA-ging','tuktok|TUK-tok','kuweba|ku-WE-ba','aklat|AK-lat','bahay|BA-hai','bata|BA-ta','tulay|TU-lai','ilaw|I-law','tumawa|tu-MA-wa'],
+A:['lumang|LU-mang','kayamanan|ka-ya-MA-nan','gubat|GU-bat','sanga|SA-nga','bundok|BUN-dok','talon|TA-lon','kompas|KOM-pas','gintong|GIN-tong','maingat|ma-I-ngat','binuksan|bi-nuk-SAN','ibinalik|i-bi-na-LIK','kumikinang|ku-mi-ki-NANG','hinarang|hi-na-RANG','malaking|ma-LA-king','kaibigan|ka-i-BI-gan'],
+D:['karunungan|ka-ru-NU-ngan','pinakamagandang|pi-na-ka-ma-GAN-dang','ibinahagi|i-bi-ba-HA-gi','inihatid|i-ni-HA-tid','matalinong|ma-ta-LI-nong','ipinakita|i-pi-na-KI-ta','nag-alok|nag-A-lok','nakakita|na-ka-KI-ta','biglang|BIG-lang','tumalon|tu-MA-lon','kuwento|ku-WEN-to','gabay|GA-bai','pagkain|pag-KA-in','puno|PU-no','ngumiti|ngu-MI-ti']}};
+const STORY={
+en:{t:'The Map in the Attic',x:`Mia and Leo found an old map in the attic. The map showed a path through a jungle to a hidden treasure. They packed a lantern, a rope, a compass, and some water. A big river blocked the road, so they built a bridge from branches. Suddenly, a monkey jumped down and grabbed the compass! Leo laughed and offered a banana. The monkey gave back the compass and led them across the mountain. At the top, they saw a cave behind a waterfall. Inside the cave, a golden chest sparkled. Mia opened it carefully. It was full of books! The wise old guide smiled. “The greatest treasure is knowledge,” she said. The children returned home and shared the stories with their friends.`},
+tl:{t:'Ang Mapa sa Bahay',x:`Si Ana at si Ben ay nakakita ng lumang mapa sa bahay. Ipinakita ng mapa ang daan patungo sa kayamanan sa gubat. Nagdala sila ng ilaw, lubid, tubig, at pagkain. Hinarang ng malaking ilog ang daan, kaya gumawa sila ng tulay mula sa sanga. Biglang tumalon ang unggoy at kinuha ang kompas! Tumawa si Ben at nag-alok ng saging. Ibinalik ng unggoy ang kompas at inihatid sila sa bundok. Sa tuktok, nakita nila ang kuweba sa likod ng talon. Sa loob, kumikinang ang isang gintong kaban. Maingat itong binuksan ni Ana. Puno ito ng aklat! Ngumiti ang matalinong gabay. “Ang pinakamagandang kayamanan ay karunungan,” sabi niya. Umuwi ang mga bata at ibinahagi ang mga kuwento sa kanilang mga kaibigan.`}};
+// [skill, question, options, correct index]
+const QZ={
+en:[['Story','Where did Mia and Leo find the map?',['In the attic','At school','By the river','In a cave'],0],
+['Story','What did the monkey grab?',['A banana','A rope','The compass','The lantern'],2],
+['Story','What was inside the golden chest?',['Gold coins','Books','Maps','Food'],1],
+['Word meaning','“Sparkled” means…',['Fell down','Shined brightly','Fell asleep','Got broken'],1],
+['Word meaning','“Hidden” means…',['Not easy to find','Very big','Easy to see','Very old'],0],
+['Sequence','What happened first?',['They crossed the mountain','The monkey grabbed the compass','They saw the cave','They found the map'],3],
+['Sequence','What did they do after the river blocked the road?',['Went home','Built a bridge','Opened the chest','Saw the waterfall'],1],
+['Critical thinking','Why did Leo offer a banana?',['He did not like it','He wanted to sleep','He wanted the compass back','He was hungry'],2],
+['Critical thinking','What is the greatest treasure, says the guide?',['Gold','Knowledge','A lantern','A mountain'],1],
+['Critical thinking','What lesson does the story teach?',['Never go outside','Monkeys are bad','Only gold is valuable','Books and learning are real treasure'],3]],
+tl:[['Kuwento','Saan nakita nina Ana at Ben ang mapa?',['Sa bahay','Sa paaralan','Sa ilog','Sa kuweba'],0],
+['Kuwento','Ano ang kinuha ng unggoy?',['Saging','Lubid','Kompas','Ilaw'],2],
+['Kuwento','Ano ang laman ng gintong kaban?',['Ginto','Aklat','Mapa','Pagkain'],1],
+['Kahulugan','Ang “kumikinang” ay nangangahulugang…',['Nahulog','Nagniningning','Natulog','Nasira'],1],
+['Kahulugan','Ang “matalino” ay nangangahulugang…',['Marunong','Mabagal','Malaki','Malungkot'],0],
+['Pagkakasunod','Ano ang unang nangyari?',['Umuwi ang mga bata','Kinuha ng unggoy ang kompas','Nakita ang kuweba','Nakakita sila ng mapa'],3],
+['Pagkakasunod','Ano ang ginawa nila nang harangan ng ilog ang daan?',['Umuwi','Gumawa ng tulay','Binuksan ang kaban','Kumain'],1],
+['Kritikal na pag-iisip','Bakit nag-alok si Ben ng saging?',['Ayaw niya nito','Gusto niyang matulog','Para ibalik ng unggoy ang kompas','Gutom siya'],2],
+['Kritikal na pag-iisip','Ano ang pinakamagandang kayamanan ayon sa gabay?',['Ginto','Karunungan','Bundok','Lubid'],1],
+['Kritikal na pag-iisip','Ano ang aral ng kuwento?',['Huwag lumabas ng bahay','Masama ang unggoy','Ginto lamang ang mahalaga','Kayamanan ang pagbabasa at karunungan'],3]]};
+const LV={S:['🌱 Simple','#1f9d63'],A:['🧭 Average','#d97706'],D:['🏔️ Difficult','#d6336c']};
+const MS={Mastered:'#1f9d63',Understood:'#2aa9e0',Developing:'#d97706','Needs Support':'#d6336c'};
+const NAV=[['dash','🏕️ Base Camp'],['learners','🧒 Explorers'],['words','🔤 45 Words'],['story','📜 Story'],['quiz','❓ Quiz'],['diff','⛰️ Tricky Words'],['home','🏠 Home Reading'],['prog','📈 Progress'],['rep','🖨️ Reports'],['edit','✏️ My Content']];
+let db={};T.forEach(t=>db[t]=[]);
+let S={v:'dash',lang:'en',lid:'',term:1,cyc:1,fs:28,sel:[],res:null,rep:'profile'};
+const $=s=>document.querySelector(s),uid=()=>Math.random().toString(36).slice(2,9);
+const esc=s=>String(s).replace(/[&<>"']/g,c=>'&#'+c.charCodeAt(0)+';');
+const opt=(a,v)=>a.map(x=>`<option value="${esc(x[0])}" ${x[0]==v?'selected':''}>${esc(x[1])}</option>`).join('');
+const fl=W=>Object.entries(W).flatMap(([lv,a])=>a.map(x=>{const[w,r]=x.split('|');return{w:w.trim(),r:(r||'').trim(),lv}}));
+const cont=(l=S.lang,t=S.term,c=S.cyc)=>db.content.find(x=>x.lang==l&&x.term==t&&x.cyc==c)||(typeof BANK!='undefined'&&BANK[l]&&BANK[l][t]&&BANK[l][t][c])||undefined;
+const flat=l=>fl((cont(l)||{words:WORDS[l]}).words);
+const stry=()=>{const c=cont();return c&&c.story?{t:c.title,x:c.story}:STORY[S.lang]};
+const qz=()=>{const c=cont();return c&&c.qz&&c.qz.length?c.qz:QZ[S.lang]};
+const lname=id=>(db.learners.find(l=>l.id==id)||{name:'?'}).name;
+const AVS=['🦁','🐯','🦜','🐒','🦊','🐼','🐢','🦉'];
+const av=(l,z=44)=>{const p=(l&&l.pic)||'';return p.startsWith('data:image/')?`<img class="av" width="${z}" height="${z}" src="${esc(p)}" alt="">`:`<span class="av" style="width:${z}px;height:${z}px;font-size:${z*.6}px">${esc(p.startsWith('av:')?p.slice(3):'🧒')}</span>`};
+function shrink(f,cb){const r=new FileReader();r.onload=()=>{const i=new Image();i.onload=()=>{const c=document.createElement('canvas'),n=128,m=Math.min(i.width,i.height);c.width=c.height=n;c.getContext('2d').drawImage(i,(i.width-m)/2,(i.height-m)/2,m,m,0,0,n,n);cb(c.toDataURL('image/jpeg',.7))};i.onerror=()=>toast('That file is not a picture');i.src=r.result};r.readAsDataURL(f)}
+const rom=(lang,w)=>([...fl(WORDS[lang]),...db.content.filter(c=>c.lang==lang).flatMap(c=>fl(c.words)),...(typeof BANK!='undefined'?Object.values(BANK[lang]||{}).flatMap(t=>Object.values(t)).flatMap(c=>fl(c.words)):[])].find(x=>x.w==w)||{r:''}).r;
+const lvl=s=>s>=9?'Mastered':s>=7?'Understood':s>=5?'Developing':'Needs Support';
+const pill=l=>`<span class="pill" style="background:${MS[l]}">${l}</span>`;
+function toast(m){const t=$('#toast');t.textContent=m;t.style.display='block';setTimeout(()=>t.style.display='none',2200)}
+async function load(){
+  if(API){try{const r=await(await fetch(API)).json();T.forEach(t=>db[t]=r[t]||[])}catch(e){toast('Cannot reach Google Sheet')}}
+  else T.forEach(t=>db[t]=JSON.parse(localStorage.getItem('rt_'+t)||'[]'));
+  render()}
+function save(t){
+  if(API)fetch(API,{method:'POST',headers:{'Content-Type':'text/plain'},body:JSON.stringify({table:t,rows:db[t]})}).catch(()=>toast('Save failed'));
+  else localStorage.setItem('rt_'+t,JSON.stringify(db[t]))}
+function say(w){const u=new SpeechSynthesisUtterance(w);u.lang=S.lang=='en'?'en-US':'fil-PH';u.rate=.7;speechSynthesis.cancel();speechSynthesis.speak(u)}
+function go(v){S.v=v;S.res=null;render();scrollTo(0,0)}
+function set(k,v){S[k]=v;render()}
+function need(){if(!S.lid){toast('Choose an explorer first');return false}return true}
+function bar(noLang){return `<div class="bar"><select aria-label="Learner" onchange="set('lid',this.value)"><option value="">Choose explorer…</option>${opt(db.learners.map(l=>[l.id,l.name]),S.lid)}</select>`
++(noLang?'':`<select aria-label="Language" onchange="S.sel=[];set('lang',this.value)">${opt([['en','English'],['tl','Filipino']],S.lang)}</select>`)
++`<select aria-label="Term" onchange="set('term',+this.value)">${opt([1,2,3].map(n=>[n,'Term '+n]),S.term)}</select><select aria-label="Cycle" onchange="set('cyc',+this.value)">${opt([1,2,3,4,5].map(n=>[n,'Cycle '+n]),S.cyc)}</select>${S.lid?`<span class="chip">${av(db.learners.find(l=>l.id==S.lid),40)} <b>${esc(lname(S.lid))}</b></span>`:''}</div>`}
+const mine=(t)=>db[t].filter(r=>r.lid==S.lid);
+const same=r=>r.lid==S.lid&&r.lang==S.lang&&r.term==S.term&&r.cyc==S.cyc;
+const V={};
+V.dash=()=>{const n=db.learners.length,k={};const last={};db.assess.forEach(a=>last[a.lid]=a);Object.values(last).forEach(a=>k[a.level]=(k[a.level]||0)+1);
+const done=t=>new Set(db[t].filter(r=>r.term==S.term&&r.cyc==S.cyc).map(r=>r.lid)).size;
+const avg=db.assess.length?(db.assess.reduce((s,a)=>s+a.score,0)/db.assess.length).toFixed(1):'–';
+return bar(true)+`<div class="cards"><div class="card n1"><b>${n}</b><br>Enrolled explorers</div><div class="card n2"><b>${avg}</b><br>Average quiz score /10</div><div class="card n3"><b>${n-done('assess')}</b><br>Quizzes pending (T${S.term} C${S.cyc})</div><div class="card n4"><b>${done('assess')}</b><br>Quizzes done</div></div>
+<h2>Activities this cycle</h2><div class="cards"><div class="card">🔤 Word lists: ${done('wordrec')} done · ${n-done('wordrec')} pending</div><div class="card">📜 Story reading: ${done('story')} done · ${n-done('story')} pending</div></div>
+<h2>Mastery levels (latest quiz)</h2><div class="cards">${Object.keys(MS).map(m=>`<div class="card" style="border-color:${MS[m]}"><b>${k[m]||0}</b><br>${m}</div>`).join('')}</div>`};
+V.learners=()=>`<h2>🧒 Explorers</h2><div class="bar"><input id="nm" placeholder="Learner name or ID" aria-label="Name"><select id="sx"><option>Girl</option><option>Boy</option></select><input id="sc" placeholder="Section"><select id="avs" aria-label="Avatar">${AVS.map(a=>`<option>${a}</option>`).join('')}</select><input id="ph" type="file" accept="image/*" aria-label="Photo (optional)"><button class="btn" onclick="addL()">➕ Add explorer</button></div>
+<p class="tip">🔒 Use first names or ID numbers only. Add a photo only with parent permission. Avatars are a safe choice. Photos are shrunk to a small square.</p>
+<div class="scroll"><table><tr><th>Name</th><th>Sex</th><th>Section</th><th>Actions</th></tr>${db.learners.map(l=>`<tr><td>${av(l)} ${esc(l.name)}</td><td>${esc(l.sex)}</td><td>${esc(l.sec)}</td><td><button class="btn sm alt" onclick="S.lid='${l.id}';go('prog')">Profile</button><button class="btn sm alt" title="Add or change photo" onclick="pickPic('${l.id}')">📷</button><button class="btn sm alt" title="Change avatar" onclick="nextAv('${l.id}')">🦁</button><button class="btn sm" onclick="editL('${l.id}')">Edit</button><button class="btn sm" style="background:#555" onclick="delL('${l.id}')">Delete</button></td></tr>`).join('')||'<tr><td colspan=4>No explorers yet. Add your first one above.</td></tr>'}</table></div>`;
+function addL(){const n=$('#nm').value.trim();if(!n)return toast('Type a name');const f=$('#ph').files[0],add=pic=>{db.learners.push({id:uid(),name:n,sex:$('#sx').value,sec:$('#sc').value,pic});save('learners');render()};f?shrink(f,add):add('av:'+$('#avs').value)}
+function pickPic(id){const i=document.createElement('input');i.type='file';i.accept='image/*';i.onchange=()=>i.files[0]&&shrink(i.files[0],p=>{db.learners.find(l=>l.id==id).pic=p;save('learners');render()});i.click()}
+function nextAv(id){const l=db.learners.find(x=>x.id==id),k=AVS.indexOf((l.pic||'').slice(3));l.pic='av:'+AVS[(k+1)%AVS.length];save('learners');render()}
+function editL(id){const l=db.learners.find(x=>x.id==id),n=prompt('Name',l.name);if(n){l.name=n;l.sec=prompt('Section',l.sec)||l.sec;save('learners');render()}}
+function delL(id){if(!confirm('Delete this learner and all records?'))return;db.learners=db.learners.filter(l=>l.id!=id);T.slice(1).forEach(t=>{db[t]=db[t].filter(r=>r.lid!=id);save(t)});save('learners');render()}
+V.words=()=>{const ws=flat(S.lang);let h=`<h2>🔤 45-Word Trail</h2>`+bar()+`<p class="tip">Tap 🔊 to hear a word. Tap a card if the explorer could <b>not</b> read it, then save.</p>`;
+['S','A','D'].forEach(k=>{h+=`<h3 style="color:${LV[k][1]}">${LV[k][0]}</h3><div class="grid">`+ws.filter(x=>x.lv==k).map(x=>`<div class="w ${S.sel.includes(x.w)?'bad':''}" onclick="tog('${x.w}')"><b>${x.w}</b><i>${x.r}</i><button aria-label="Hear ${x.w}" onclick="event.stopPropagation();say('${x.w}')">🔊</button></div>`).join('')+'</div>'});
+return h+`<button class="big" onclick="saveWords()">💾 Save word results (${45-S.sel.length}/45 read)</button>`};
+function tog(w){S.sel=S.sel.includes(w)?S.sel.filter(x=>x!=w):[...S.sel,w];render()}
+function saveWords(){if(!need())return;db.wordrec=db.wordrec.filter(r=>!same(r));db.wordrec.push({id:uid(),lid:S.lid,lang:S.lang,term:S.term,cyc:S.cyc,read:45-S.sel.length,date:new Date().toISOString().slice(0,10)});
+S.sel.forEach(w=>{if(!db.difficult.some(d=>d.lid==S.lid&&d.lang==S.lang&&d.w==w))db.difficult.push({id:uid(),lid:S.lid,lang:S.lang,w,mastered:false})});
+save('wordrec');save('difficult');S.sel=[];toast('Saved! Tricky words added to practice list');render()}
+V.story=()=>{const s=stry(),re=new RegExp('(?<![\\p{L}-])('+flat(S.lang).map(x=>x.w.replace(/[.*+?^${}()|[\]\\]/g,'\\$&')).join('|')+')(?![\\p{L}-])','giu');
+const cnt=s.x.split(/\s+/).length;
+return `<h2>📜 ${s.t}</h2>`+bar()+`<div class="bar"><label>🔎 Text size <input type="range" min="18" max="48" value="${S.fs}" oninput="S.fs=this.value;$('#st').style.fontSize=this.value+'px'"></label><button class="btn alt sm" onclick="say(stry().x)">🔊 Listen</button></div>
+<div class="story" id="st" style="font-size:${S.fs}px">${esc(s.x).replace(re,'<mark>$1</mark>')}</div>
+<h3>Record reading</h3><div class="bar"><input id="wc" type="number" min="0" max="${cnt}" placeholder="Words read correctly (of ${cnt})"><input id="sec" type="number" min="1" placeholder="Seconds"><button class="btn" onclick="saveStory(${cnt})">💾 Save reading</button></div>
+<div class="scroll"><table><tr><th>Term/Cycle</th><th>Accuracy</th><th>Words/min</th><th>Level</th></tr>${mine('story').filter(r=>r.lang==S.lang).map(r=>`<tr><td>T${r.term} C${r.cyc}</td><td>${r.acc}%</td><td>${r.wpm}</td><td>${r.fl}</td></tr>`).join('')}</table></div>`};
+function saveStory(c){if(!need())return;const w=+$('#wc').value,s=+$('#sec').value;if(!s||w>c)return toast('Check the numbers');
+const acc=Math.round(w/c*100),wpm=Math.round(w/s*60),fl=acc>=97?'Independent':acc>=90?'Instructional':'Needs help';
+db.story=db.story.filter(r=>!same(r));db.story.push({id:uid(),lid:S.lid,lang:S.lang,term:S.term,cyc:S.cyc,acc,wpm,fl});save('story');toast('Saved');render()}
+V.quiz=()=>{if(S.res)return `<h2>🏆 Result</h2><div class="card n1"><b>${S.res}/10</b> ${pill(lvl(S.res))}</div><button class="big" onclick="S.res=null;render()">Try again</button>`;
+return `<h2>❓ Comprehension Quiz</h2>`+bar()+qz().map((q,i)=>`<div class="q"><b>${i+1}. ${q[0]}:</b> ${q[1]}${q[2].map((o,j)=>`<label><input type="radio" name="q${i}" value="${j}"> ${o}</label>`).join('')}</div>`).join('')+`<button class="big" onclick="submitQ()">✅ Check my score</button>
+<p>9–10 Mastered · 7–8 Understood · 5–6 Developing · 0–4 Needs Support</p>`};
+function submitQ(){if(!need())return;let sc=0;for(let i=0;i<10;i++){const r=document.querySelector(`input[name=q${i}]:checked`);if(!r)return toast('Answer question '+(i+1));if(+r.value==qz()[i][3])sc++}
+db.assess=db.assess.filter(r=>!same(r));db.assess.push({id:uid(),lid:S.lid,lang:S.lang,term:S.term,cyc:S.cyc,score:sc,level:lvl(sc),date:new Date().toISOString().slice(0,10)});save('assess');S.res=sc;render()}
+V.diff=()=>{const l=mine('difficult').filter(d=>d.lang==S.lang);return `<h2>⛰️ Tricky Words</h2>`+bar()+`<p class="tip">Practice these words again. Mark them when the explorer can read them.</p><div class="grid">${l.map(d=>`<div class="w ${d.mastered?'':'bad'}"><b>${d.w}</b><i>${rom(d.lang,d.w)}</i><button onclick="say('${d.w}')">🔊</button><button style="border-radius:14px;width:auto;padding:0 10px;font-size:.9rem" onclick="mast('${d.id}')">${d.mastered?'✅ Mastered':'Mark mastered'}</button></div>`).join('')||'<p>No tricky words yet.</p>'}</div>`};
+function mast(id){const d=db.difficult.find(x=>x.id==id);d.mastered=!d.mastered;save('difficult');render()}
+V.home=()=>{const l=mine('home'),p=l.length?Math.round(l.filter(h=>h.done).length/l.length*100):0;
+return `<h2>🏠 Home Reading Checklist</h2>`+bar(true)+`<div class="bar"><input id="hd" type="date" value="${new Date().toISOString().slice(0,10)}"><select id="hp"><option value="1">Read at home ✅</option><option value="0">Did not read ❌</option></select><input id="hm" type="number" placeholder="Minutes"><input id="pn" placeholder="Parent name (confirmation)"><input id="tn" placeholder="Teacher name (confirmation)"><button class="btn" onclick="addH()">💾 Save day</button></div>
+<div class="card n4">Home reading participation: <b>${p}%</b><div class="meter"><span style="width:${p}%"></span></div></div>
+<div class="scroll"><table><tr><th>Date</th><th>Read?</th><th>Min</th><th>Parent</th><th>Teacher</th></tr>${l.sort((a,b)=>b.date.localeCompare(a.date)).map(h=>`<tr><td>${h.date}</td><td>${h.done?'✅':'❌'}</td><td>${esc(h.min)}</td><td>${esc(h.pn)}</td><td>${esc(h.tn)}</td></tr>`).join('')}</table></div>`};
+function addH(){if(!need())return;db.home=db.home.filter(h=>!(h.lid==S.lid&&h.date==$('#hd').value));db.home.push({id:uid(),lid:S.lid,date:$('#hd').value,done:$('#hp').value=='1',min:$('#hm').value,pn:$('#pn').value,tn:$('#tn').value});save('home');render()}
+function progTable(){const rows=[];for(let t=1;t<=3;t++)for(let c=1;c<=5;c++){const f=x=>mine(x).find(r=>r.lang==S.lang&&r.term==t&&r.cyc==c);const w=f('wordrec'),s=f('story'),a=f('assess');if(w||s||a)rows.push({t,c,w,s,a})}
+const m=(v,max)=>v==null?'–':`<div class="meter"><span style="width:${v/max*100}%"></span></div>${v}`;
+let imp='';if(rows.length>1){const a=rows[0],b=rows[rows.length-1];imp=`<p class="tip">📈 From T${a.t}C${a.c} to T${b.t}C${b.c}: words ${(b.w&&a.w)?b.w.read-a.w.read:'–'} · accuracy ${(b.s&&a.s)?b.s.acc-a.s.acc:'–'}% · comprehension ${(b.a&&a.a)?b.a.score-a.a.score:'–'}</p>`}
+return `<div class="scroll"><table><tr><th>Term/Cycle</th><th>Words read /45</th><th>Accuracy %</th><th>Words/min</th><th>Comprehension</th></tr>${rows.map(r=>`<tr><td>T${r.t} C${r.c}</td><td>${m(r.w&&r.w.read,45)}</td><td>${m(r.s&&r.s.acc,100)}</td><td>${r.s?r.s.wpm:'–'}</td><td>${r.a?r.a.score+'/10 '+pill(r.a.level):'–'}</td></tr>`).join('')||'<tr><td colspan=5>No records yet.</td></tr>'}</table></div>`+imp}
+V.prog=()=>`<h2>📈 Progress Map</h2>`+bar()+(S.lid?`<h3>${av(db.learners.find(l=>l.id==S.lid),72)} ${esc(lname(S.lid))}</h3>`+progTable():'<p>Choose an explorer.</p>');
+V.rep=()=>{let h=`<h2>🖨️ Reports</h2>`+bar()+`<div class="bar noprint"><select onchange="set('rep',this.value)">${opt([['profile','Learner reading profile'],['assess','Comprehension assessment record'],['daily','Daily reading report']],S.rep)}</select><button class="btn" onclick="print()">🖨️ Print / Save PDF</button><button class="btn alt" onclick="csv()">⬇️ Export CSV</button></div><h3>READTRACK · Salita Muna, Kuwento Naman · Grade 3</h3>`;
+if(S.rep=='profile'){if(!S.lid)return h+'<p>Choose an explorer.</p>';const d=mine('difficult');h+=`<h3>${av(db.learners.find(l=>l.id==S.lid),72)} ${esc(lname(S.lid))}</h3>`+progTable()+`<h3>Tricky words</h3><p>${d.map(x=>esc(x.w)+(x.mastered?' ✅':'')).join(', ')||'None'}</p><p>Home reading days: ${mine('home').filter(x=>x.done).length}/${mine('home').length}</p>`}
+else if(S.rep=='assess'){h+=`<p>Term ${S.term}, Cycle ${S.cyc}</p><div class="scroll"><table><tr><th>Learner</th><th>Language</th><th>Score</th><th>Level</th></tr>${db.assess.filter(a=>a.term==S.term&&a.cyc==S.cyc).map(a=>`<tr><td>${esc(lname(a.lid))}</td><td>${a.lang}</td><td>${a.score}/10</td><td>${a.level}</td></tr>`).join('')}</table></div>`}
+else{const dt=new Date().toISOString().slice(0,10);h+=`<div class="scroll"><table><tr><th>Date</th><th>Learner</th><th>Read?</th><th>Min</th><th>Parent</th><th>Teacher</th></tr>${db.home.sort((a,b)=>b.date.localeCompare(a.date)).slice(0,60).map(x=>`<tr><td>${x.date}</td><td>${esc(lname(x.lid))}</td><td>${x.done?'✅':'❌'}</td><td>${esc(x.min)}</td><td>${esc(x.pn)}</td><td>${esc(x.tn)}</td></tr>`).join('')}</table></div>`}
+return h};
+function csv(){const q=v=>'"'+String(v??'').replace(/"/g,'""')+'"';let o='';T.slice(1).filter(t=>t!='content').forEach(t=>{o+='## '+t+'\n';db[t].forEach(r=>o+=Object.entries(r).filter(([k])=>k!='pic').map(([k,v])=>q(k=='lid'?lname(v):v)).join(',')+'\n')});
+const a=document.createElement('a');a.href=URL.createObjectURL(new Blob([o],{type:'text/csv'}));a.download='readtrack-export.csv';a.click()}
+V.edit=()=>{const c=cont(),W=c?c.words:WORDS[S.lang],st=stry(),q=qz();
+const ta=k=>`<h3 style="color:${LV[k][1]}">${LV[k][0]} <small>(15 words · one per line: word|respelling)</small></h3><textarea id="w${k}" rows="8">${esc(W[k].join('\n'))}</textarea>`;
+return `<h2>✏️ My Words & Story</h2><div class="bar"><select onchange="set('lang',this.value)">${opt([['en','English'],['tl','Filipino']],S.lang)}</select><select onchange="set('term',+this.value)">${opt([1,2,3].map(n=>[n,'Term '+n]),S.term)}</select><select onchange="set('cyc',+this.value)">${opt([1,2,3,4,5].map(n=>[n,'Cycle '+n]),S.cyc)}</select></div>
+<p class="tip">${c?'✅ Using saved content for this cycle.':'📘 Showing the sample. Edit it and save to make it yours.'} Write the respelling after the | sign, like <b>adventure|ad-VEN-chur</b>. You need exactly 45 words and 10 questions.</p>
+${ta('S')}${ta('A')}${ta('D')}
+<h3>📜 Story</h3><input id="ttl" style="width:100%;margin-bottom:8px" placeholder="Story title" value="${esc(st.t)}"><textarea id="stx" rows="10">${esc(st.x)}</textarea>
+<h3>❓ 10 Questions</h3>${q.map((x,i)=>`<div class="q"><b>${i+1}.</b> <input id="t${i}" value="${esc(x[0])}" aria-label="Skill"><input id="q${i}" style="width:100%;margin:6px 0" value="${esc(x[1])}" placeholder="Question">${x[2].map((o,j)=>`<input id="o${i}${j}" value="${esc(o)}" placeholder="Choice ${'ABCD'[j]}" style="width:49%;margin-bottom:4px">`).join('')}<label>Correct answer: <select id="a${i}">${opt([0,1,2,3].map(j=>[j,'ABCD'[j]]),x[3])}</select></label></div>`).join('')}
+<button class="big" onclick="saveC()">💾 Save for Term ${S.term} Cycle ${S.cyc}</button><button class="big alt" style="background:#555" onclick="resetC()">↩️ Back to sample</button>`};
+function saveC(){const g=id=>$('#'+id).value,ls=id=>g(id).split('\n').map(x=>x.trim()).filter(Boolean);
+const words={S:ls('wS'),A:ls('wA'),D:ls('wD')},n=words.S.length+words.A.length+words.D.length;
+if(n!=45)return toast('Need exactly 45 words (now '+n+')');
+const story=g('stx').trim();if(!story)return toast('Type the story');
+const qs=[];for(let i=0;i<10;i++){const o=[0,1,2,3].map(j=>g('o'+i+j).trim()),q=g('q'+i).trim();if(!q||o.some(x=>!x))return toast('Complete question '+(i+1));qs.push([g('t'+i).trim()||'Question',q,o,+g('a'+i)])}
+db.content=db.content.filter(x=>!(x.lang==S.lang&&x.term==S.term&&x.cyc==S.cyc));
+db.content.push({id:uid(),lang:S.lang,term:S.term,cyc:S.cyc,title:g('ttl').trim()||'My Story',words,story,qz:qs});save('content');toast('Saved!');render()}
+function resetC(){if(!confirm('Go back to the sample for this cycle?'))return;db.content=db.content.filter(x=>!(x.lang==S.lang&&x.term==S.term&&x.cyc==S.cyc));save('content');render()}
+function render(){$('#nav').innerHTML=NAV.map(n=>`<button class="${n[0]==S.v?'on':''}" onclick="go('${n[0]}')">${n[1]}</button>`).join('');$('#main').innerHTML=V[S.v]()}
+load();
+</script></body></html>
